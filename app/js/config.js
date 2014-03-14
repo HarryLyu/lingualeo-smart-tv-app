@@ -1,9 +1,8 @@
 (function () {
 
     var LEO = {
-        config: {
-
-        }
+        config: {},
+        scenes: {}
     };
 
     window.LEO = LEO;

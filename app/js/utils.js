@@ -2,6 +2,9 @@ LEO.utils = {
     templatesCache: {}
 };
 
+LEO.log = function (text) {
+    $('#log').prepend(text).prepend('<br/>');
+}
 
 LEO.utils.template = function (path, data, callback) {
     if (!callback) {

@@ -1,0 +1,18 @@
+<div class="training-step-by-step">
+    <div class="left-column">
+        <div data-question class="training-question"><%=question.text%></div>
+        <div data-image class="training-image"></div>
+    </div>
+    <div class="right-column">
+        <%  var index = 0;
+            for (var answer in question.answers) {
+                index++;
+        %>
+            <div class="answer-item" data-answer-item="<%=index%>">
+                <div class="answer-text"><%=question.answers[answer].answerText%></div>
+                <span class="answer-number"><%=index%></span>
+            </div>
+        <% } %>
+        <div class="answer-item dont-know" data-answer-dont-know>Не знаю</div>
+    </div>
+</div>

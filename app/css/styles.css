@@ -1,11 +1,120 @@
-.header {
-    color: white;
-    font-size: 100px;
+body {
+    background-image: url(https://pbs.twimg.com/profile_background_images/436216826368757760/XQoKhrrp.png);
+    background-repeat: repeat-x;
+    background-color: #3A6F61;
     text-align: center;
+    font-family: Arial,sans-serif;
 }
 
-.key-code {
-    color: black;
-    font-size: 50px;
+.main-container {
+    width: 1100px;
+    height: 600px;
+    background: #F5F2E9;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.container-title {
+    padding: 20px 45px;
+    font-size: 40px;
+    min-height: 85px;
+    box-sizing: border-box;
+    background: white;
+    text-align: left;
+}
+
+.top-line {
+    width: 1100px;
+    text-align: left;
+    margin: 10px auto;
+
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.top-line span.slogan {
+    top: -5px;
+    position: relative;
+    margin-left: 25px;
+    font-style: italic;
+}
+
+.top-line .homelink {
+    float: right;
+}
+
+#log {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid white;
+    width: 300px;
+}
+
+.view-trainings-list {
     text-align: center;
+    padding: 150px 0;
+    box-sizing: border-box;
+}
+
+.training-item {
+    display: inline-block;
+    width: 175px;
+    height: 130px;
+    text-decoration: none;
+    color: #333333;
+    background-color: #eae3cf;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 30px 10px 0 10px;
+
+}
+
+.training-item.active {
+    background-color: #fcfcfc;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.training-item .training-title {
+    margin-top: 10px;
+}
+
+.training-icon {
+    display: inline-block;
+    height: 70px;
+    width: 72px;
+    background-image: url('../images/train-list-flat.png');
+}
+
+.training-word_translate .training-icon {
+    background-position: 0 -220px;
+}
+
+.training-translate_word .training-icon {
+    background-position: -75px -220px;
+}
+
+.training-rapid_repetition .training-icon {
+    background-position: -383px 0;
+    width: 97px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 7px 15px;
+    border: 1px solid;
+    border-color: #4085bd #4085bd #2c5f88;
+    border-bottom-width: 2px;
+    background: #62a4d9;
+    background: -webkit-linear-gradient(top, #62A4D9, #3D81B9);
+    background: linear-gradient(top, #62A4D9, #3D81B9);
+    box-shadow: 0 1px #91bfe4 inset,1px 0 #6ba5d4 inset,-1px 0 #6ba5d4 inset,0 -1px #5995c6 inset;
+    border-radius: 2px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 -1px #325386;
+    -webkit-appearance: none;
 }
