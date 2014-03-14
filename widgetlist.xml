@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <list>
+        <widget id="MyTVApp">
+            <title>LyubimovApp</title>
+            <compression size="3383543" type="zip"/>
+            <description>A basic application for Samsung TVs</description>
+            <download>http://188.120.233.173/build/widget.zip</download>
+        </widget>
+    </list>
+</rsp>
