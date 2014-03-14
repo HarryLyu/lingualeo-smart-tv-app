@@ -3,9 +3,13 @@
     <mouse>y</mouse>
     <previewjs itemtype="string"></previewjs>
     <preicon itemtype="string"></preicon>
-    <cpname itemtype="string"></cpname>
+
+    <cpname itemtype="string">LinguaLeo</cpname>
+    <login>y</login>
+
     <cplogo itemtype="string"></cplogo>
-    <cpauthjs itemtype="string"></cpauthjs>
+    <cpauthjs itemtype="string">js/LinguaLeoAuthorization.js</cpauthjs>
+
     <ver itemtype="string">0.1</ver>
     <mgrver itemtype="string"></mgrver>
     <fullwidget itemtype="boolean">y</fullwidget>
@@ -15,20 +19,20 @@
     <audiomute itemtype="boolean">y</audiomute>
     <videomute itemtype="boolean">y</videomute>
     <dcont itemtype="boolean">y</dcont>
-    <widgetname itemtype="string">Lyubimov DemoApp</widgetname>
-    <description itemtype="string"></description>
+    <widgetname itemtype="string">LinguaLeo</widgetname>
+    <description itemtype="string">LinguaLeo is a best way to learn Languages online</description>
+
     <width itemtype="number">1280</width>
     <height itemtype="number">720</height>
+
     <author itemtype="group">
-        <name itemtype="string">Smart</name>
+        <name itemtype="string">Igor Lyubimov, LinguaLeo</name>
         <email itemtype="string">igor@lingualeo.com</email>
         <organization itemtype="string">LinguaLeo</organization>
     </author>
 
-<!--
-    <ThumbIcon itemtype="string">icon/sb_demo_115x95.png</ThumbIcon>
-    <BigThumbIcon itemtype="string">icon/sb_demo_115x95.png</BigThumbIcon>
-    <BigListIcon itemtype="string">icon/sb_demo_95x78.png</BigListIcon>
-    <ListIcon itemtype="string">icon/sb_demo_85x70.png</ListIcon>
--->
+    <ThumbIcon itemtype="string">images/icons/tiny.png</ThumbIcon>
+    <BigThumbIcon itemtype="string">images/icons/tiny.png</BigThumbIcon>
+    <BigListIcon itemtype="string">images/icons/tiny.png</BigListIcon>
+    <ListIcon itemtype="string">images/icons/tiny.png</ListIcon>
 </widget>
