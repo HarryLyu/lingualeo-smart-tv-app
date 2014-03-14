@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rsp stat="ok">
     <list>
-        <widget id="MyTVApp">
+        <widget id="LinguaLeoSmartTvApp">
             <title>LinguaLeo</title>
             <compression size="3383543" type="zip"/>
             <description>LinguaLeo is a best way to learn Languages Online</description>

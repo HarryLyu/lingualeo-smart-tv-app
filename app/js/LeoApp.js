@@ -6,13 +6,21 @@
         anchorElementSelector: '#anchor',
 
         init: function () {
-            this.WidgetAPI = new Common.API.Widget();    // create Common module
+            /*this.WidgetAPI = new Common.API.Widget();    // create Common module
             this.TVKey = new Common.API.TVKeyValue();
-            this.WidgetAPI.sendReadyEvent();
+            this.WidgetAPI.sendReadyEvent();*/
 
             this.private_assignEvents();
 
-            this.dumpSSOInformation();
+            this.private_loadTemplate();
+        },
+
+        private_loadTemplate: function () {
+            var self = this;
+            LEO.utils.template('index', null, function (html) {
+                $('[data-container]').html(html);
+                self.dumpSSOInformation();
+            })
         },
 
         private_assignEvents: function () {

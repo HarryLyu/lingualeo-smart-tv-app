@@ -9,6 +9,7 @@
 
     <cplogo itemtype="string"></cplogo>
     <cpauthjs itemtype="string">js/LinguaLeoAuthorization.js</cpauthjs>
+    <type>user</type>
 
     <ver itemtype="string">0.1</ver>
     <mgrver itemtype="string"></mgrver>

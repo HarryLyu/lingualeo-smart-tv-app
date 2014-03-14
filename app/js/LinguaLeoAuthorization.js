@@ -8,9 +8,11 @@ var xhttpObject=null;
 
 
 LinguaLeoAuthorization.checkAccount = function(id, pw, fnCallback) {
-    gmailData="accountType=HOSTED_OR_GOOGLE&Email="+id+"&Passwd="+pw+"&service=mail&source=";
-    alert("bURL"+bURL);
-    parsebrowserData(fnCallback);
+    alert("id=====" + id);
+    alert("pw====" + pw);
+
+    //gmailData="accountType=HOSTED_OR_GOOGLE&Email="+id+"&Passwd="+pw+"&service=mail&source=";
+    //parsebrowserData(fnCallback);
 }
 
 
