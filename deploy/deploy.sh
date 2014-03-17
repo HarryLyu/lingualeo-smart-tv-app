@@ -1,4 +1,4 @@
-upload_path=root@188.120.233.173:/home/lyubimoff/data/www/lyubimoff.ru/
+upload_path=188.120.233.173:/home/lyubimoff/data/www/lyubimoff.ru/
 
 rm -f -r ../build/widget.zip
 cd ../app
