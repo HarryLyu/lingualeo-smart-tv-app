@@ -44,6 +44,56 @@ body {
     float: right;
 }
 
+.training-step-by-step {
+    width: 730px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 38px;
+    min-height: 410px;
+
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.training-step-by-step .left-column {
+    text-align: left;
+    float: left;
+    width: 270px;
+    font-size: 30px;
+}
+
+.training-step-by-step .right-column {
+    float: right;
+    width: 390px;
+}
+
+.training-step-by-step .right-column .answer-item {
+    text-align: right;
+    margin: 0 0 20px 0;
+}
+
+.training-step-by-step .right-column .answer-item.active .btn {
+    border: 2px solid #f3934d;
+}
+
+.training-step-by-step .right-column .answer-text {
+    text-align: left;
+    width: 310px;
+}
+
+
+.answer-number {
+    display: inline;
+    width: 50px;
+    color: lightgray;
+    padding: 5px 10px;
+}
+
+
 #log {
     position: absolute;
     top: 0;
@@ -101,20 +151,19 @@ body {
 
 .btn {
     display: inline-block;
-    font-size: 15px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 7px 15px;
-    border: 1px solid;
-    border-color: #4085bd #4085bd #2c5f88;
-    border-bottom-width: 2px;
-    background: #62a4d9;
-    background: -webkit-linear-gradient(top, #62A4D9, #3D81B9);
-    background: linear-gradient(top, #62A4D9, #3D81B9);
-    box-shadow: 0 1px #91bfe4 inset,1px 0 #6ba5d4 inset,-1px 0 #6ba5d4 inset,0 -1px #5995c6 inset;
+    box-shadow: 0 2px #265985;
     border-radius: 2px;
-    text-align: center;
+    background: #3680be;
     color: #ffffff;
-    text-shadow: 0 -1px #325386;
+    text-decoration: none !important;
     -webkit-appearance: none;
+    padding: 9px 15px 6px;
+    font-size: 18px;
+    position: relative;
+}
+
+.dont-know .btn {
+    background: #E7F0F7;
+    box-shadow: 0 2px #AAAAAA;
+    color: #333;
 }

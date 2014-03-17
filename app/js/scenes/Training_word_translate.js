@@ -4,6 +4,9 @@
     };
 
     LEO.scenes.Training_word_translate.prototype = {
+
+        title: 'Выберите правильный перевод',
+
         render: function () {
             var self = this;
 
@@ -14,18 +17,54 @@
                 self.prepareQuestionData(trainingsData);
                 self.loadQuestion(0);
             });
+
+            this.words = {};
         },
 
         private_assignEvents: function () {
+            var self = this;
+            this.app.getContainer().on('click', '[data-answer-item]', function () {
+                self.selectAnswer($(this).attr('data-answer-item'));
+                self.acceptAnswer();
+            });
+        },
 
+        selectAnswer: function (index) {
+            this.selectedAnswerIndex = index;
+            this.app.getContainer().find('[data-answer-item]').removeClass('active');
+            this.app.getContainer().find('[data-answer-item=' + this.selectedAnswerIndex + ']').addClass('active');
+        },
+
+        acceptAnswer: function () {
+            debugger;
+            var currentAnswerId = this.app.getContainer().find('[data-answer-item=' + this.selectedAnswerIndex + ']').attr('data-answer-id');
+            this.words[this.currentQuestionId] = (this.currentQuestionId == currentAnswerId) ? 1 : 0;
+
+            this.currentQuestionIndex++;
+
+            if (this.currentQuestionIndex >= this.questionIds.length) {
+                alert('finish');
+            }
+            else {
+                this.loadQuestion(this.currentQuestionIndex);
+            }
+        },
+
+        fillQuestionsData: function () {
+            //this.questionsItems =
         },
 
         loadQuestion: function (index) {
             var self = this;
 
-            var question = this.trainingsData[this.questionIds[index]];
-            LEO.utils.template('training_word_translate', {question: question}, function (html) {
+            this.currentQuestionIndex = index;
+            this.currentQuestionId = this.questionIds[index];
+            this.currentQuestion = this.trainingsData[this.currentQuestionId];
+
+            LEO.utils.template('training_word_translate', {question: this.currentQuestion}, function (html) {
                 self.app.writeToContainer(html);
+                self.fillQuestionsData();
+                self.selectAnswer(1);
             })
         },
 
@@ -47,52 +86,53 @@
             return {
                 KEY_ENTER: {
                     callback: function () {
-                        self.$trainingsItems[self.selectedItemIndex].click();
-                    }
-                },
-                KEY_1: {
-                    callback: function () {
-                        self.selectAnswer(0);
                         self.acceptAnswer();
                     }
                 },
-                KEY_2: {
+                KEY_1: {
                     callback: function () {
                         self.selectAnswer(1);
                         self.acceptAnswer();
                     }
                 },
-                KEY_3: {
+                KEY_2: {
                     callback: function () {
                         self.selectAnswer(2);
                         self.acceptAnswer();
                     }
                 },
-                KEY_4: {
+                KEY_3: {
                     callback: function () {
                         self.selectAnswer(3);
                         self.acceptAnswer();
                     }
                 },
-                KEY_5: {
+                KEY_4: {
                     callback: function () {
                         self.selectAnswer(4);
                         self.acceptAnswer();
                     }
                 },
+                KEY_5: {
+                    callback: function () {
+                        self.selectAnswer(5);
+                        self.acceptAnswer();
+                    }
+                },
                 KEY_0: {
                     callback: function () {
-                        self.acceptDontKnow();
+                        self.selectAnswer(0);
+                        self.acceptAnswer();
                     }
                 },
                 KEY_UP: {
                     callback: function () {
-                        self.acceptDontKnow();
+                        self.selectAnswer(Math.max(0, self.selectedAnswerIndex - 1));
                     }
                 },
                 KEY_DOWN: {
                     callback: function () {
-                        self.acceptDontKnow();
+                        self.selectAnswer(Math.min(self.questionIds.length - 1, self.selectedAnswerIndex + 1));
                     }
                 }
             };

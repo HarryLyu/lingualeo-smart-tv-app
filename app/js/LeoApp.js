@@ -35,18 +35,27 @@
         },
 
         runScene: function (sceneName) {
+            LEO.log('run scene 1');
             if (this.currentScene) {
+                LEO.log('run scene 2');
                 this.KeyHandler.setHandlerKeyMap(null);
                 this.getContainer().empty().removeClass(this.currentScene.containerClassName);
+                this.setTitle('');
                 this.currentScene.destroy();
                 this.currentScene = null;
             }
+            LEO.log('run scene 3');
 
             this.currentScene = this.scenes[sceneName];
 
+            LEO.log('run scene 4');
+
             this.getContainer().addClass(this.currentScene.containerClassName);
+            this.setTitle(this.currentScene.title);
+            LEO.log('run scene 5');
             this.currentScene.render();
 
+            LEO.log('run scene 6');
             this.KeyHandler.setHandlerKeyMap(this.currentScene.getKeyHandler());
         },
 
@@ -61,6 +70,10 @@
 
         getContainer: function () {
             return $('[data-container]');
+        },
+
+        setTitle: function (title) {
+            $('[data-title]').html(title);
         },
 
         writeToContainer: function (html) {

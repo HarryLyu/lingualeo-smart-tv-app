@@ -14,6 +14,8 @@
 
         containerClassName: 'view-trainings-list',
 
+        title: 'Тренировки слов',
+
         render: function () {
             var self = this;
 
@@ -47,10 +49,14 @@
             var self = this;
 
             this.clickCallback = function () {
+                LEO.log('click callback');
                 var $elem = $(this),
                     trainingName = $elem.attr(self.trainingItemAttr);
 
+                LEO.log('click callback: ' + trainingName);
+
                 self.app.loadScene('Training_' + trainingName, function () {
+                    LEO.log(trainingName + 'is loaded');
                     self.app.runScene('Training_' + trainingName);
                 });
 
@@ -76,7 +82,7 @@
                 },
                 KEY_ENTER: {
                     callback: function () {
-                        self.$trainingsItems[self.selectedItemIndex].click();
+                        $(self.$trainingsItems[self.selectedItemIndex]).click();
                     }
                 }
             };

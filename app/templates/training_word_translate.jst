@@ -8,11 +8,14 @@
             for (var answer in question.answers) {
                 index++;
         %>
-            <div class="answer-item" data-answer-item="<%=index%>">
-                <div class="answer-text"><%=question.answers[answer].answerText%></div>
+            <div class="answer-item" data-answer-item="<%=index%>" data-answer-id="<%=answer%>">
+                <div class="btn answer-text"><%=question.answers[answer].answerText%></div>
                 <span class="answer-number"><%=index%></span>
             </div>
         <% } %>
-        <div class="answer-item dont-know" data-answer-dont-know>Не знаю</div>
+        <div class="answer-item dont-know" data-answer-item="0" data-answer-id="">
+            <div class="btn answer-text">Не знаю</div>
+            <span class="answer-number">0</span>
+        </div>
     </div>
 </div>
