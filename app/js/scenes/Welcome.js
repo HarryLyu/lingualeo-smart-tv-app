@@ -13,16 +13,24 @@
         selectedItemIndex: null,
 
         render: function () {
-            var self = this;
+            try {
+                var self = this;
 
-            LEO.utils.template('welcome', {}, function (html) {
-                self.app.writeToContainer(html);
-                self.fillElementsData(self.app.getContainer());
+                LEO.utils.template('welcome', {}, function (html) {
+                    try {
+                        self.app.writeToContainer(html);
+                        self.fillElementsData(self.app.getContainer());
 
-                self.selectLoginItem(0);
+                        self.selectLoginItem(0);
 
-                self.private_assignEvents();
-            });
+                        self.private_assignEvents();
+                    } catch (e) {
+                        LEO.log('Exception in Welcome.template.render: ' + e.message);
+                    }
+                });
+            } catch (e) {
+                LEO.log('Exception in Welcome.render: ' + e.message);
+            }
         },
 
         fillElementsData: function ($container) {
@@ -36,10 +44,12 @@
         },
 
         private_assignEvents: function () {
-            var self = this;
 
-            this.clickCallback = function () {
-                var $elem = $(this),
+        },
+
+        clickCallback: function ($elem) {
+            try {
+                var self = this,
                     selectedMode = $elem.attr(self.btnsAttr),
                     sceneName;
 
@@ -54,11 +64,9 @@
                 self.app.loadScene(sceneName, function (sceneInstance) {
                     self.app.runScene(sceneName);
                 });
-
-                return false;
-            };
-
-            this.app.getContainer().on('click', '[' + this.btnsAttr + ']', this.clickCallback);
+            } catch (e) {
+                LEO.log('Exception in Welcome.clickCallback ' + e.message);
+            }
         },
 
         getKeyHandler: function () {
@@ -77,17 +85,22 @@
                 },
                 KEY_ENTER: {
                     callback: function () {
-                        $(self.$.loginItems[self.selectedItemIndex]).click();
+                        LEO.log('Welcome scene ENTER handler');
+                        self.clickCallback($(self.$.loginItems[self.selectedItemIndex]));
                     }
                 }
             };
         },
 
         destroy: function () {
-            this.app.getContainer().off('click', '[' + this.trainingItemAttr + ']', this.clickCallback);
-            this.clickCallback = null;
-            this.$trainingsItems = null;
-            this.trainingsCount = null;
+            try {
+                this.app.getContainer().off('click', '[' + this.trainingItemAttr + ']', this.clickCallback);
+                this.clickCallback = null;
+                this.$trainingsItems = null;
+                this.trainingsCount = null;
+            } catch (e) {
+                LEO.log('Exception in Welcome.destroy: ' + e.message);
+            }
         }
     }
 })();

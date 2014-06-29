@@ -28,11 +28,15 @@
         },
 
         getStoredUserData: function () {
-            if (!this.init()) {
-                return {};
+            try {
+                if (!this.init()) {
+                    return {};
+                }
+                var fileObj = this.getSmartTvFilesystem().openCommonFile(curWidget.id + '/' + this.userDataFileName, 'r');
+                return JSON.parse(fileObj.readAll());
+            } catch (e) {
+                LEO.log('Exception in getStoredUserData: ' + e.message);
             }
-            var fileObj = this.getSmartTvFilesystem().openCommonFile(curWidget.id + '/' + this.userDataFileName, 'r');
-            return JSON.parse(fileObj.readAll());
         },
 
         saveStoredUserData: function (userData) {

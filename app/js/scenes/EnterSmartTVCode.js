@@ -19,18 +19,18 @@
             var self = this;
 
             LEO.utils.template('enterSmartTVCode', {}, function (html) {
-                self.app.writeToContainer(html);
+                try {
+                    self.app.writeToContainer(html);
 
-                LEO.log('1');
-                self.fillElementsData(self.app.getContainer());
-                LEO.log('2');
-                //self.private_assignEvents();
-                LEO.log('3');
-                self.imeBox = self.createInputHandler('smartTVCodeInput', function () {
-                    self.codeInputOnComplete.apply(self, Array.prototype.slice.call(arguments, 0))
-                });
-                LEO.log('4');
-                this.$.codeInputBtn.addClass('active').focus();
+                    self.fillElementsData(self.app.getContainer());
+
+                    self.imeBox = self.createInputHandler('smartTVCodeInput', function (hz, code) {
+                        LEO.log('SmartTVCode received ' + code);
+                        self.codeInputOnComplete(code)
+                    });
+                } catch (e) {
+                    LEO.log('Exception in EnterSmartTVCode.render: ' + e.message);
+                }
             });
         },
 
@@ -43,10 +43,12 @@
 
                 imeBox.inputboxID = elementId;
                 imeBox.inputTitle = 'Code';
-                imeBox.setOnCompleteFunc = onCompleteCallback;
                 imeBox.isSetNumberdMode = true;
-                document.getElementById(elementId).focus();
-                LEO.log('imebox: ' + Object.keys(imeBox).join(' '));
+
+                // FFFFFUUUUUUUU!!!!11 они перепутали названия коллбэков!
+                imeBox.onKeyPressFunc = onCompleteCallback;
+                //imeBox.setOnCompleteFunc = onCompleteCallback;
+
                 return imeBox;
             }
             catch (e) {
@@ -54,8 +56,24 @@
             }
         },
 
-        codeInputOnComplete: function () {
-            LEO.log('complete: ' + JSON.stringify(arguments));
+        codeInputOnComplete: function (code) {
+            var self = this;
+
+            LEO.log('EnterSmartvCode.codeInputOnComplete start request');
+
+            LEO.Request.getAuthorization(code,
+                function (user) {
+                    LEO.log('codeInputOnComplete: Authorization went good!');
+                    self.app.loadScene('TrainingsList', function (sceneInstance) {
+                        self.app.runScene('TrainingsList');
+                    });
+                },
+                function () {
+                    LEO.log('codeInputOnComplete: Authorization went bad!');
+                }
+            );
+
+            LEO.log('EnterSmartvCode.codeInputOnComplete request sent');
         },
 
         fillElementsData: function ($container) {
@@ -67,16 +85,12 @@
         },
 
         private_assignEvents: function () {
-            var self = this;
-            this.app.getContainer().on('click', '[data-code-input]', function () {
-                //self.imeBox.onShow();
-            });
+
         },
 
         destroy: function () {
-            this.app.getContainer().removeClass('view-trainings-list');
-            this.app.getContainer().off('click', '[' + this.trainingItemAttr + ']', this.clickCallback);
-            this.clickCallback = null;
+            this.imeBox = null;
+            this.$ = {};
         },
 
         getKeyHandler: function () {
@@ -85,12 +99,8 @@
             return {
                 KEY_ENTER: {
                     callback: function () {
-                        try {
-                            self.$.codeInputField.focus;
-                            self.imeBox.onShow();
-                        } catch (e) {
-                            LEO.log('err ' + e.message);
-                        }
+                        //self.$.codeInputField.focus;
+                        self.imeBox.onShow();
                     }
                 }
 

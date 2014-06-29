@@ -7,40 +7,65 @@
             userDataFileName: 'userdata.json'
         },
         applicationParams: null,
+        container: null,
 
         init: function () {
-            this.applicationParams = LEO.SmartTV.getApplicationParams();
-            LEO.Localization.init(this.applicationParams);
+            try {
+                this.applicationParams = LEO.SmartTV.getApplicationParams();
 
-            this.private_assignEvents();
-            this.start();
+                // load localization
+                LEO.Localization.init(this.applicationParams);
 
-            if (LEO.SmartTV.isRunOnSmartTV()) {
-                LEO.SmartTV.initSmartTVObjects();
+                // init container
+                this.container = $('[data-container]');
+
+                this.private_assignEvents();
+                this.start();
+
+                if (LEO.SmartTV.isRunOnSmartTV()) {
+                    LEO.SmartTV.initSmartTVObjects();
+                }
+            } catch (e) {
+                LEO.log('Exception in LeoApp.init: ' + e.message);
             }
         },
 
         start: function () {
-            var self = this;
+            LEO.log('Start 1');
+            try {
+                var self = this;
 
-            var storedUser = LEO.FileAPI.getStoredUserData();
+                var storedUser = LEO.FileAPI.getStoredUserData();
 
-            if (storedUser.smartTVCode) {
-                LEO.Request.getAuthorization(storedUser.smartTVCode, function (user) {
-                    LEO.log('result: ' + JSON.stringify(user));
-                }, function (error) {
-                    LEO.log('error: ' + JSON.stringify(user));
-                });
+                LEO.log('Start 2');
+                if (storedUser.smartTVCode) {
+                    LEO.log('Start 3');
+                    LEO.log('Found stored userCode: ' + storedUser.smartTVCode);
+
+                    LEO.Request.getAuthorization(storedUser.smartTVCode,
+                        function (user) {
+                            LEO.log('Authorization of stored user went ok');
+                            self.loadScene('TrainingsList', function (sceneInstance) {
+                                self.runScene('TrainingsList');
+                            });
+
+                        }, function (error) {
+                            LEO.log('Authorization of stored user went wrong');
+                            this.loadScene('Welcome', function (sceneInstance) {
+                                self.runScene('Welcome');
+                            });
+                        }
+                    );
+                }
+                else {
+                    LEO.log('Start 4');
+                    this.loadScene('Welcome', function (sceneInstance) {
+                        self.runScene('Welcome');
+                    });
+                }
+            } catch (e) {
+                LEO.log('Exception in LeoApp.start: ' + e.message);
             }
-            else {
-                this.loadScene('Welcome', function (sceneInstance) {
-                    self.runScene('Welcome');
-                });
-            }
-
-            /*this.loadScene('TrainingsList', function (sceneInstance) {
-                self.runScene('TrainingsList');
-            });*/
         },
 
         loadScene: function (sceneName, callback) {
@@ -58,25 +83,29 @@
         },
 
         runScene: function (sceneName) {
-            if (this.currentScene) {
-                this.KeyHandler.setHandlerKeyMap(null);
-                this.getContainer().empty().removeClass(this.currentScene.containerClassName);
-                this.setTitle('');
-                this.currentScene.destroy();
-                this.currentScene = null;
+            try {
+                if (this.currentScene) {
+                    this.KeyHandler.setHandlerKeyMap(null);
+                    this.currentScene.destroy && this.currentScene.destroy();
+                    this.getContainer().empty().removeClass(this.currentScene.containerClassName);
+                    this.setTitle('');
+                    this.currentScene = null;
+                }
+
+                this.currentScene = this.scenes[sceneName];
+
+                this.getContainer().addClass(this.currentScene.containerClassName);
+                this.setTitle(this.currentScene.title);
+                this.currentScene.render();
+
+                this.KeyHandler.setHandlerKeyMap(this.currentScene.getKeyHandler());
+            } catch (e) {
+                LEO.log('Exception in runScene: ' + e.message);
             }
-
-            this.currentScene = this.scenes[sceneName];
-
-            this.getContainer().addClass(this.currentScene.containerClassName);
-            this.setTitle(this.currentScene.title);
-            this.currentScene.render();
-
-            this.KeyHandler.setHandlerKeyMap(this.currentScene.getKeyHandler());
         },
 
         getContainer: function () {
-            return $('[data-container]');
+            return this.container;
         },
 
         setTitle: function (title) {
@@ -89,38 +118,6 @@
 
         private_assignEvents: function () {
             this.KeyHandler = new LEO.KeyHandler();
-        },
-
-        getAuthorization: function (userCode, callbackSuccess, callbackError) {
-            var url = LEO.config.apiHost + '/api/login',
-                self = this;
-
-            $.ajax(url, {
-                type : 'POST',
-                dataType : 'json',
-
-                params: {
-                    port: LEO.config.apiPort,
-                    email: 'igor@lingualeo.com',
-                    smartTvCode: userCode,
-                    password: userCode
-                },
-
-                success: function(data, textStatus, request) {
-                    if (!data.error_msg) {
-                        callbackError && callbackError(data.error_msg);
-                        return;
-                    }
-
-                    self.auth.cookies = request.getAllResponseHeaders();
-                    self.auth.user = data.user;
-                    callbackSuccess && callbackSuccess(self.auth.user)
-                },
-
-                error: function(data, textStatus, request) {
-                    callbackError && callbackError(data);
-                }
-            });
         }
     };
 

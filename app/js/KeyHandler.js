@@ -1,23 +1,29 @@
 (function () {
     LEO.KeyHandler = function () {
-        var self = this;
+        try {
+            var self = this;
 
-        /*this.$anchor = $('<a></a>').attr({
-            href: 'javascript:void(0)'
-        });
+            /*this.$anchor = $('<a></a>').attr({
+             href: 'javascript:void(0)'
+             });
 
-        this.$anchor.on('click', function (event) {
-            self.private_keyDownHandler(event);
-        });
+             this.$anchor.on('click', function (event) {
+             self.private_keyDownHandler(event);
+             });
 
-        this.$anchor.appendTo(document.body);
-        this.$anchor.focus();*/
+             this.$anchor.appendTo(document.body);
+             this.$anchor.focus();*/
 
-        $(window).on('keydown', function (event) {
-            self.private_keyDownHandler(event);
-        })
+            //$(window).on('keydown', )
 
-        this.initKeys();
+            window.addEventListener('keydown', function (event) {
+                self.private_keyDownHandler(event);
+            }, true);
+
+            this.initKeys();
+        } catch (e) {
+            LEO.log('Exception in LEO.KeyHandler: ' + e.message);
+        }
     };
 
     LEO.KeyHandler.prototype = {

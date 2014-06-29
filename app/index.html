@@ -9,6 +9,7 @@
     <script src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script>
     <script src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
     <script src="$MANAGER_WIDGET/Common/webapi/1.0/webapis.js"></script>
+    <script src="$MANAGER_WIDGET/Common/af/2.0.0/loader.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <script src="js/lib/jquery-2.1.0.min.js"></script>
@@ -16,6 +17,7 @@
     <script src="js/utils.js"></script>
     <script src="js/KeyHandler.js"></script>
 
+    <script src="js/framework/XHRToolKit.js"></script>
     <script src="js/framework/SmartTV.js"></script>
     <script src="js/framework/FileAPI.js"></script>
     <script src="js/framework/Request.js"></script>
@@ -26,6 +28,8 @@
     <script src="js/LinguaLeoAuthorization.js"></script>
 </head>
 <body>
+<object id="pluginPlayer" style="visibility: hidden; width: 0px; height: 0px; opacity: 0.0" classid="clsid:SAMSUNG-INFOLINK-PLAYER"></object>
+
 <script src="$MANAGER_WIDGET/Common/IME/ime2.js"></script>
 <script src="$MANAGER_WIDGET/Common/IME_XT9/ime.js"></script>
 <script src="$MANAGER_WIDGET/Common/IME_XT9/inputCommon/ime_input.js"></script>
@@ -43,6 +47,10 @@
 
 <div id="log"></div>
 
-<script>LeoApp.init();</script>
+<script>
+    setTimeout(function(){
+        LeoApp.init();
+    }, 500);
+</script>
 </body>
 </html>

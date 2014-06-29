@@ -1,0 +1,12 @@
+{
+    "training_names": {
+        "word_translate": "Слово-перевод",
+        "translate_word": "Перевод-слово",
+        "rapid_repetition": "Лео-Спринт"
+    },
+    "scene_enterCode": {
+        "title": "Перейдите по адресу<br>http://LinguaLeo.com/smarttv<br>и введите персональный код доступа",
+        "inputBtnText": "Ввести код доступа",
+        "errorCode": "Не получилось найти пользователя с таким "
+    }
+}

@@ -56,7 +56,6 @@
                 LEO.log('click callback: ' + trainingName);
 
                 self.app.loadScene('Training_' + trainingName, function () {
-                    LEO.log(trainingName + 'is loaded');
                     self.app.runScene('Training_' + trainingName);
                 });
 
@@ -105,7 +104,7 @@
         },
 
         getInitialData: function (callback) {
-            LEO.Request.request('GET', 'trainings/trainings_data.json', {}, callback, null);
+            LEO.Request.request('POST', '/training/getinitialdata', {wordSetId: 0}, callback, null);
         }
     }
 })();

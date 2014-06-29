@@ -1,52 +1,49 @@
 (function () {
     var Request = {
-        request: function (type, url, params, callbackSuccess, callbackError) {
-            var url = 'http://188.120.233.173/ajax-data/' + url;
+        auth: {},
+        request: function (type, endPoint, params, callbackSuccess, callbackError) {
+            var url = LEO.config.apiHost + endPoint
 
-            $.ajax(url, {
-                type : type,
-                dataType : 'json',
-                params: params,
-                setCookies: this.auth.cookies,
-                success: function(obj, status, response) {
-                    callbackSuccess && callbackSuccess(JSON.parse(response.responseText));
-                },
-                error: function(obj, status, response) {
-                    callbackError && callbackError(response);
-                }
+
+            LEO.log('start request ' + endPoint);
+
+            var XHRTool = new XHRToolKit(type, url, params, function(data, status, response) {
+                LEO.log('success request');
+                callbackSuccess && callbackSuccess(data);
+            }, function(obj, status, response) {
+                LEO.log('error request');
+                callbackError && callbackError(response);
             });
+            XHRTool.sendXHRRequest();
         },
 
         getAuthorization: function (userCode, callbackSuccess, callbackError) {
-            var url = LEO.config.apiHost + '/api/login',
+            var url = LEO.config.apiHost + '/api/login?port=' + LEO.config.apiPort + '&email=igor@lingualeo.com&smartTvCode=' + userCode + '&password=' + userCode,
                 self = this;
 
-            $.ajax(url, {
-                type : 'POST',
-                dataType : 'json',
+            LEO.log('LEO.Request.getAuthorization for ' + userCode);
 
-                params: {
-                    port: LEO.config.apiPort,
-                    email: 'igor@lingualeo.com',
-                    smartTvCode: userCode,
-                    password: userCode
-                },
+            try {
+                var XHRTool = new XHRToolKit('GET', url, null, function (data, request) {
+                    try {
+                        if (!data.error_msg) {
+                            callbackError && callbackError(data.error_msg);
+                            return;
+                        }
 
-                success: function(data, textStatus, request) {
-                    if (!data.error_msg) {
-                        callbackError && callbackError(data.error_msg);
-                        return;
+                        self.auth.cookies = request.getAllResponseHeaders();
+                        self.auth.user = data.user;
+                        callbackSuccess && callbackSuccess(self.auth.user)
+                    } catch (e) {
+                        LEO.log('Auth response parse error ' + e.message);
                     }
+                }, callbackError);
+                XHRTool.sendXHRRequest();
 
-                    self.auth.cookies = request.getAllResponseHeaders();
-                    self.auth.user = data.user;
-                    callbackSuccess && callbackSuccess(self.auth.user)
-                },
+            } catch (e) {
+                LEO.log('Exception in Auth request ' + e.message);
+            }
 
-                error: function(data, textStatus, request) {
-                    callbackError && callbackError(data);
-                }
-            });
         }
     };
 
