@@ -99,7 +99,8 @@ body {
     top: 0;
     left: 0;
     border: 1px solid white;
-    width: 300px;
+    width: 500px;
+    background: white;
 }
 
 .view-trainings-list {
@@ -160,6 +161,10 @@ body {
     padding: 9px 15px 6px;
     font-size: 18px;
     position: relative;
+}
+
+.btn.active {
+    border: 2px solid #f3934d;
 }
 
 .dont-know .btn {

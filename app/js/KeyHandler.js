@@ -58,6 +58,14 @@
                 return;
             }
 
+            var anyClickCallbackObject =  this.currentHandlerKeyMap.ANY;
+
+            if (anyClickCallbackObject) {
+                if (anyClickCallbackObject.callback.call(anyClickCallbackObject.context) === false) {
+                    return;
+                }
+            }
+
             var keyCode = event.keyCode,
                 keyLabel = this.private_getKeyLabelByCode(keyCode),
                 callbackObject =  this.currentHandlerKeyMap[keyLabel];
