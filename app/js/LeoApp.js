@@ -2,6 +2,7 @@
     var LeoApp = {
         scenes: {},
         currentScene: null,
+        firstScene: 'Training_rapid_repetition',
         auth: {},
         smartTvObjects: {
             userDataFileName: 'userdata.json'
@@ -31,36 +32,35 @@
         },
 
         start: function () {
-            LEO.log('Start 1');
+
             try {
                 var self = this;
 
                 var storedUser = LEO.FileAPI.getStoredUserData();
 
-                LEO.log('Start 2');
-                if (storedUser.smartTVCode) {
-                    LEO.log('Start 3');
+
+                if (storedUser && storedUser.smartTVCode) {
                     LEO.log('Found stored userCode: ' + storedUser.smartTVCode);
 
                     LEO.Request.getAuthorization(storedUser.smartTVCode,
                         function (user) {
                             LEO.log('Authorization of stored user went ok');
+
                             self.loadScene('TrainingsList', function (sceneInstance) {
                                 self.runScene('TrainingsList');
                             });
 
                         }, function (error) {
                             LEO.log('Authorization of stored user went wrong');
-                            this.loadScene('Welcome', function (sceneInstance) {
-                                self.runScene('Welcome');
+                            this.loadScene(self.firstScene, function (sceneInstance) {
+                                self.runScene(self.firstScene);
                             });
                         }
                     );
                 }
                 else {
-                    LEO.log('Start 4');
-                    this.loadScene('Welcome', function (sceneInstance) {
-                        self.runScene('Welcome');
+                    this.loadScene(self.firstScene, function (sceneInstance) {
+                        self.runScene(self.firstScene);
                     });
                 }
             } catch (e) {

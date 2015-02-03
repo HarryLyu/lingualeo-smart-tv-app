@@ -7,9 +7,20 @@
             }
         },
 
-        play: function (soundUrl) {
-            this.init();
-            this.audioElement.Play("http://d2x1jgnvxlnz25.cloudfront.net/v2/1/41202-631152008.mp3");
+        play: function (soundUrl, loop) {
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', soundUrl);
+            audioElement.load();
+
+            if (loop) {
+                audioElement.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                }, false);
+            }
+
+            audioElement.play();
+            return audioElement;
         }
     };
 

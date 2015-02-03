@@ -5,7 +5,9 @@
     };
 
     LEO.scenes.EnterSmartTVCode.prototype = {
-        title: 'Привяжите свой аккаунт на LinguaLeo',
+
+        containerClassName: 'welcome-scene',
+
         $: {},
         imeBox: null,
         config: {
@@ -64,6 +66,7 @@
             LEO.Request.getAuthorization(code,
                 function (user) {
                     LEO.log('codeInputOnComplete: Authorization went good!');
+                    LEO.log('User: ' + JSON.stringify(user));
                     self.app.loadScene('TrainingsList', function (sceneInstance) {
                         self.app.runScene('TrainingsList');
                     });

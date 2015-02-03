@@ -17,6 +17,16 @@
             XHRTool.sendXHRRequest();
         },
 
+        getLocal: function (endPoint, callbackSuccess, callbackError) {
+            var XHRTool = new XHRToolKit('GET', endPoint, {}, function(data, status, response) {
+                callbackSuccess && callbackSuccess(data);
+            }, function(obj, status, response) {
+                callbackError && callbackError(response);
+            });
+            XHRTool.sendXHRRequest();
+        },
+
+
         getAuthorization: function (userCode, callbackSuccess, callbackError) {
             var url = LEO.config.apiHost + '/api/login?port=' + LEO.config.apiPort + '&email=igor@lingualeo.com&smartTvCode=' + userCode + '&password=' + userCode,
                 self = this;

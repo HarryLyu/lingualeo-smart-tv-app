@@ -1,11 +1,11 @@
 (function () {
-    LEO.scenes.Welcome = function (app) {
+    LEO.scenes.LeoTVCodeTour = function (app) {
         this.app = app;
     };
 
-    LEO.scenes.Welcome.prototype = {
+    LEO.scenes.LeoTVCodeTour.prototype = {
         $: {},
-        containerClassName: 'welcome-scene',
+        containerClassName: 'leo-tv-code-tour-scene',
         btnsAttr: 'data-login-mode',
 
         selectedItemIndex: null,
@@ -14,7 +14,7 @@
             try {
                 var self = this;
 
-                LEO.utils.template('welcome', {}, function (html) {
+                LEO.utils.template('LeoTVCodeTour', {}, function (html) {
                     try {
                         self.app.writeToContainer(html);
                         self.fillElementsData(self.app.getContainer());
@@ -52,7 +52,8 @@
                     sceneName;
 
                 if (selectedMode == 'no') {
-                    sceneName = 'LeoTVCodeTour';
+                    self.app.isDemoUser = true;
+                    sceneName = 'TrainingsList';
                 }
 
                 if (selectedMode == 'yes') {
@@ -102,7 +103,7 @@
                 this.$trainingsItems = null;
                 this.trainingsCount = null;
             } catch (e) {
-                LEO.log('Exception in Welcome.destroy: ' + e.message);
+                LEO.log('Exception in LeoTvCodeTour.destroy: ' + e.message);
             }
         }
     }

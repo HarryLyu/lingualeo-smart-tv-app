@@ -10,8 +10,6 @@
         render: function () {
             var self = this;
 
-            self.private_assignEvents();
-
             this.getTrainingData(function (data) {
                 var trainingsData = self.cleanData(data.game);
                 self.prepareQuestionData(trainingsData);
@@ -21,15 +19,8 @@
             this.words = {};
         },
 
-        private_assignEvents: function () {
-            var self = this;
-            this.app.getContainer().on('click', '[data-answer-item]', function () {
-                self.selectAnswer($(this).attr('data-answer-item'));
-                self.acceptAnswer();
-            });
-        },
-
         selectAnswer: function (index) {
+            LEO.log('select answer');
             this.selectedAnswerIndex = index;
             this.app.getContainer().find('[data-answer-item]').removeClass('active');
             this.app.getContainer().find('[data-answer-item=' + this.selectedAnswerIndex + ']').addClass('active');
@@ -55,6 +46,7 @@
         },
 
         private_enableAnyClickHandler: function (handler) {
+            LEO.log('anyClick');
             this.anyClickHandler = handler;
         },
 
@@ -153,11 +145,13 @@
                 },
                 KEY_UP: {
                     callback: function () {
+                        LEO.log('up');
                         self.selectAnswer(Math.max(0, self.selectedAnswerIndex - 1));
                     }
                 },
                 KEY_DOWN: {
                     callback: function () {
+                        LEO.log('down');
                         self.selectAnswer(Math.min(self.questionIds.length - 1, self.selectedAnswerIndex + 1));
                     }
                 }
@@ -177,7 +171,7 @@
         },
 
         getTrainingData: function (callback) {
-            LEO.Request.request('GET', 'trainings/word_translate.json', {}, callback, null);
+            LEO.Request.getLocal('ajax-data/trainings/word_translate.json', callback, null);
         }
     }
 })();

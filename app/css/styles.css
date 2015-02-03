@@ -1,47 +1,101 @@
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url(../OpenSansLight.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(../OpenSans.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../OpenSansBold.ttf) format('truetype');
+}
+
 body {
-    background-image: url(https://pbs.twimg.com/profile_background_images/436216826368757760/XQoKhrrp.png);
-    background-repeat: repeat-x;
+    background-image: url(../images/background.png);
+    background-repeat: no-repeat;
     background-color: #3A6F61;
+    font-family: OpenSans, 'Open Sans';
     text-align: center;
-    font-family: Arial,sans-serif;
+    color: white;
 }
 
 .main-container {
     width: 1100px;
-    height: 600px;
-    background: #F5F2E9;
-    border-radius: 10px;
+    height: 700px;
     margin: 0 auto;
     overflow: hidden;
 }
 
-.container-title {
-    padding: 20px 45px;
-    font-size: 40px;
-    min-height: 85px;
-    box-sizing: border-box;
-    background: white;
-    text-align: left;
+.line-delimeter {
+    background: rgba(255,255,255,.5);
+    width: 600px;
+    height: 2px;
+    margin: 30px auto;
 }
 
-.top-line {
+.welcome-scene {
+    padding-top: 100px;
+}
+
+.welcome-btns .btn {
+    width: 180px;
+    font-size: 30px;
+    padding: 20px 0;
+    margin: 0 20px;
+}
+
+.leo-tv-code-tour-scene {
+    paddint-top: 50px;
+}
+
+.leo-tv-code-tour {
     width: 1100px;
-    text-align: left;
-    margin: 10px auto;
-
-    font-size: 16px;
-    color: #ffffff;
+    margin: 20px auto;
 }
 
-.top-line span.slogan {
-    top: -5px;
-    position: relative;
-    margin-left: 25px;
-    font-style: italic;
+.leo-tv-code-tour .step {
+    display: inline-block;
+    width: 33%;
+    font-size: 24px;
 }
 
-.top-line .homelink {
+
+
+
+/* Rapid repetition */
+.rapid-answer {
+    width: 109px;
+    font-size: 18px;
+    padding: 20px 0;
+    margin-top: 100px;
+}
+
+.rapid-answer.no {
+    background: url(../images/icons/answer-wrong.png);
+    float: left;
+}
+
+.rapid-answer.yes {
+    background: url(../images/icons/answer-wrong.png);
     float: right;
+}
+
+
+h1 {
+    font-size: 42px;
+    font-family: OpenSansLight, 'Open Sans Light';
+    font-weight: 300;
+}
+
+p {
+    font-size: 30px;
 }
 
 .training-step-by-step {
@@ -99,8 +153,11 @@ body {
     top: 0;
     left: 0;
     border: 1px solid white;
-    width: 500px;
+    width: 400px;
     background: white;
+    opacity: 0.6;
+    color: black;
+    text-align: left;
 }
 
 .view-trainings-list {
@@ -132,22 +189,14 @@ body {
 
 .training-icon {
     display: inline-block;
-    height: 70px;
-    width: 72px;
-    background-image: url('../images/train-list-flat.png');
-}
-
-.training-word_translate .training-icon {
-    background-position: 0 -220px;
-}
-
-.training-translate_word .training-icon {
-    background-position: -75px -220px;
+    height: 131px;
+    width: 131px;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .training-rapid_repetition .training-icon {
-    background-position: -383px 0;
-    width: 97px;
+    background-image: url(../images/icons/trainings/rapid_repetition.png);
 }
 
 .btn {
@@ -161,6 +210,10 @@ body {
     padding: 9px 15px 6px;
     font-size: 18px;
     position: relative;
+}
+
+.btn-big {
+
 }
 
 .btn.active {

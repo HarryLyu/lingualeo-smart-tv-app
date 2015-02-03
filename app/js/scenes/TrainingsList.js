@@ -5,8 +5,8 @@
 
     LEO.scenes.TrainingsList.prototype = {
         availableTrainings: [
-            'word_translate',
-            'translate_word',
+            //'word_translate',
+            //'translate_word',
             'rapid_repetition'
         ],
 
@@ -27,7 +27,7 @@
 
                     self.fillTrainingsItemsData();
 
-                    self.selectWelcomeItem(0);
+                    self.selectTrainingItem(0);
 
                     self.private_assignEvents();
                 })
@@ -39,30 +39,20 @@
             this.trainingsCount = this.$trainingsItems.length;
         },
 
-        selectWelcomeItem: function (index) {
+        selectTrainingItem: function (index) {
             this.selectedItemIndex = index;
             this.$trainingsItems.removeClass('active');
             $(this.$trainingsItems[this.selectedItemIndex]).addClass('active');
         },
 
-        private_assignEvents: function () {
+        runTraining: function (trainingName) {
             var self = this;
 
-            this.clickCallback = function () {
-                LEO.log('click callback');
-                var $elem = $(this),
-                    trainingName = $elem.attr(self.trainingItemAttr);
+            LEO.log('run training: ' + trainingName);
 
-                LEO.log('click callback: ' + trainingName);
-
-                self.app.loadScene('Training_' + trainingName, function () {
-                    self.app.runScene('Training_' + trainingName);
-                });
-
-                return false;
-            };
-
-            this.app.getContainer().on('click', '[' + this.trainingItemAttr + ']', this.clickCallback);
+            self.app.loadScene('Training_' + trainingName, function () {
+                self.app.runScene('Training_' + trainingName);
+            });
         },
 
         getKeyHandler: function () {
@@ -81,14 +71,13 @@
                 },
                 KEY_ENTER: {
                     callback: function () {
-                        $(self.$trainingsItems[self.selectedItemIndex]).click();
+                        self.runTraining($(self.$trainingsItems[self.selectedItemIndex]).attr(self.trainingItemAttr));
                     }
                 }
             };
         },
 
         destroy: function () {
-            this.app.getContainer().off('click', '[' + this.trainingItemAttr + ']', this.clickCallback);
             this.clickCallback = null;
             this.$trainingsItems = null;
             this.trainingsCount = null;
@@ -104,7 +93,12 @@
         },
 
         getInitialData: function (callback) {
-            LEO.Request.request('POST', '/training/getinitialdata', {wordSetId: 0}, callback, null);
+            if (this.app.isDemoUser) {
+                LEO.Request.getLocal('ajax-data/trainings/trainings_data.json', callback, null);
+            }
+            else {
+                LEO.Request.request('POST', '/training/getinitialdata', {wordSetId: 0}, callback, null);
+            }
         }
     }
 })();

@@ -79,7 +79,7 @@
             LEO.log(keyCode + ', ' + keyLabel);
 
             if (callbackObject) {
-                callbackObject.callback.call(callbackObject.context);
+                return callbackObject.callback.call(callbackObject.context);
             }
         },
 
